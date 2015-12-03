@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1>Datatables</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table id="example" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+
+    <script>
+        $(function () {
+            $('#example').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "@Url.Action("GetDTData", "Home")",
+                    "type": "POST"
+                },
+                "columns": [
+                    { "data": "first_name" },
+                    { "data": "last_name" }
+                ]
+            });
+        });
+    </script>
+
+    <script src="~/Content/datatables/js/jquery.dataTables.js"></script>
+}
