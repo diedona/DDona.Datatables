@@ -2,6 +2,12 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+    .btn-pdf{
+        margin-left: 15px;
+    }
+</style>
+
 <div class="row">
     <div class="col-xs-12">
         <h1>Datatables</h1>
@@ -51,11 +57,13 @@
                     "targets": 2, //it's an 0 index
                     "data": null,
                     "defaultContent": "<button class='btn btn-default btn-edit'><i class='glyphicon glyphicon-edit'></i> Edit</button>"
-                }]
+                }],
+                "dom": 'lfrt<"pdf-button">ip',
+                //,"dom": 'frtip<"pdf-button">'
             });
 
             $(document).on("click", ".btn-edit", function () {
-                
+
                 var _this = $(this);
 
                 //this gets the current datatables' row
@@ -66,6 +74,12 @@
 
             });
 
+            //http://stackoverflow.com/a/11453003
+            $("<button class='btn btn-default btn-pdf'><i class='glyphicon glyphicon-file'></i> PDF</button>").appendTo('div.dataTables_filter');
+
+            $(".btn-pdf").on('click', function () {
+                alert('pdf clicked');
+            });
         });
     </script>
 
