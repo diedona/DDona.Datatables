@@ -15,12 +15,14 @@
                 <tr>
                     <th>First name</th>
                     <th>Last name</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>First name</th>
                     <th>Last name</th>
+                    <th>Action</th>
                 </tr>
             </tfoot>
         </table>
@@ -30,8 +32,11 @@
 @section scripts {
 
     <script>
+        var Datatables = null;
+
         $(function () {
-            $('#example').DataTable({
+
+            Datatables = $('#example').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
@@ -41,8 +46,26 @@
                 "columns": [
                     { "data": "first_name" },
                     { "data": "last_name" }
-                ]
+                ],
+                "columnDefs": [{
+                    "targets": 2, //it's an 0 index
+                    "data": null,
+                    "defaultContent": "<button class='btn btn-default btn-edit'><i class='glyphicon glyphicon-edit'></i> Edit</button>"
+                }]
             });
+
+            $(document).on("click", ".btn-edit", function () {
+                
+                var _this = $(this);
+
+                //this gets the current datatables' row
+                var tr = Datatables.row(_this.parents('tr'));
+                var data = tr.data();
+
+                alert('First Name: ' + data.first_name);
+
+            });
+
         });
     </script>
 
